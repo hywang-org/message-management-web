@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.message.mapper.UsageMapper">
+	<resultMap id="BaseResultMap"
+		type="com.flash.message.entity.usage.Usage">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="app_id" jdbcType="VARCHAR" property="appId" />
+		<result column="app_name" jdbcType="VARCHAR" property="appName" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="channel" jdbcType="VARCHAR" property="channel" />
+		<result column="submit_order_count" jdbcType="INTEGER"
+			property="submitOrderCount" />
+		<result column="success_order_count" jdbcType="INTEGER"
+			property="successCount" />
+		<result column="fail_order_count" jdbcType="BIGINT"
+			property="failCount" />
+		<result column="unknown_order_count" jdbcType="TIMESTAMP"
+			property="unknownCount" />
+		<result column="date_time" jdbcType="VARCHAR"
+			property="dateTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, app_id,app_name, user_id, submit_order_count,
+		success_order_count,
+		fail_order_count,
+		unknown_order_count,created_date, date_time
+	</sql>
+	<insert id="insert">
+		insert into tbl_usage_statistics (id,
+		app_id,app_name,user_id,
+		channel,submit_order_count,
+		success_order_count, fail_order_count,
+		unknown_order_count,created_date, date_time)
+		values
+		(#{id,jdbcType=BIGINT}, #{appId,jdbcType=VARCHAR},
+		#{appName,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR},
+		#{channel,jdbcType=VARCHAR}, #{submitCount,jdbcType=INTEGER},
+		#{successCount,jdbcType=INTEGER}, #{failCount,jdbcType=INTEGER},
+		#{unknownCount,jdbcType=INTEGER})
+	</insert>
+	<select id="queryUsage" resultMap="BaseResultMap">
+		select * from tbl_usage_statistics where 1=1
+		<if test="beginTime != null">
+			and date_time &gt;= #{beginDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endTime != null">
+			and date_time &lt;= #{endDate,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="getHistoryByAppId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_usage_statistics where 1=1
+		<if test="beginTime != null">
+			and date_time &gt;= #{beginDate,jdbcType=dateTime}
+		</if>
+		<if test="endTime != null">
+			and date_time &lt;= #{endDate,jdbcType=dateTime}
+		</if>
+		<if test="appId != null">
+			and app_id = #{appId,jdbcType=VARCHAR},
+		</if> 
+	</select>
+	<select id="getHistoryByChannel" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_usage_statistics where 1=1
+		<if test="beginTime != null">
+			and date_time &gt;= #{beginDate,jdbcType=dateTime}
+		</if>
+		<if test="endTime != null">
+			and date_time &lt;= #{endDate,jdbcType=dateTime}
+		</if>
+		<if test="appId != null">
+			and channel = #{channelId,jdbcType=VARCHAR},
+		</if> 
+	</select>
+</mapper>

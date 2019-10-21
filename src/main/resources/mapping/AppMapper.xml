@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.message.mapper.AppMapper">
+	<resultMap id="BaseResultMap"
+		type="com.flash.message.entity.app.App">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="app_id" jdbcType="VARCHAR" property="appId" />
+		<result column="app_name" jdbcType="VARCHAR" property="appName" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="field" jdbcType="VARCHAR" property="field" />
+		<result column="protocol_type" jdbcType="INTEGER"
+			property="protocolType" />
+		<result column="callback_url" jdbcType="VARCHAR"
+			property="callbackUrl" />
+		<result column="app_status" jdbcType="INTEGER"
+			property="appStatus" />
+		<result column="extend_code" jdbcType="VARCHAR"
+			property="extendCode" />
+		<result column="speed_limit" jdbcType="INTEGER"
+			property="speedLimit" />
+		<result column="send_begin_time" jdbcType="VARCHAR"
+			property="sendBeginTime" />
+		<result column="send_end_time" jdbcType="VARCHAR"
+			property="sendEndTime" />
+		<result column="price" jdbcType="DECIMAL" property="price" />
+		<result column="pay_type" jdbcType="INTEGER" property="payType" />
+		<result column="channel" jdbcType="VARCHAR" property="channel" />
+		<result column="max_connection" jdbcType="INTEGER"
+			property="MaxConnection" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, app_id, app_name, user_id, field,protocol_type,
+		callback_url,
+		app_status, extend_code, speed_limit,
+		send_begin_time,
+		send_end_time, price, pay_type, channel,max_connection
+	</sql>
+	<select id="queryAppByAppId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_app
+		where app_id = #{appId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="isEx" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select
+		count(0)
+		from tbl_app where app_name = #{appName,jdbcType=VARCHAR}
+	</select>
+
+	<select id="queryAppByChannelId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_app
+		where channel = #{channel,jdbcType=VARCHAR}
+	</select>
+	<select id="queryApp" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_app
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		tbl_app
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insertSelective"
+		parameterType="com.flash.message.entity.app.App">
+		insert into tbl_app
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="appId != null">
+				app_id,
+			</if>
+			<if test="appName != null">
+				app_name,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="field != null">
+				field,
+			</if>
+			<if test="protocolType != null">
+				protocol_type,
+			</if>
+			<if test="callbackUrl != null">
+				callback_url,
+			</if>
+			<if test="appStatus != null">
+				app_status,
+			</if>
+			<if test="extendCode != null">
+				extend_code,
+			</if>
+			<if test="speedLimit != null">
+				speed_limit,
+			</if>
+			<if test="sendBeginTime != null">
+				send_begin_time,
+			</if>
+			<if test="sendEndTime != null">
+				send_end_time,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="payType != null">
+				pay_type,
+			</if>
+			<if test="channel != null">
+				channel,
+			</if>
+			<if test="MaxConnection != null">
+				max_connection,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="appName != null">
+				#{appName,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="field != null">
+				#{field,jdbcType=VARCHAR},
+			</if>
+			<if test="protocolType != null">
+				#{protocolType,jdbcType=VARCHAR},
+			</if>
+			<if test="callbackUrl != null">
+				#{callbackUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="appStatus != null">
+				#{appStatus,jdbcType=INTEGER},
+			</if>
+			<if test="extendCode != null">
+				#{extendCode,jdbcType=VARCHAR},
+			</if>
+			<if test="speedLimit != null">
+				#{speedLimit,jdbcType=INTEGER},
+			</if>
+			<if test="sendBeginTime != null">
+				#{sendBeginTime,jdbcType=VARCHAR},
+			</if>
+			<if test="sendEndTime != null">
+				#{sendEndTime,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=DECIMAL},
+			</if>
+			<if test="payType != null">
+				#{payType,jdbcType=INTEGER},
+			</if>
+			<if test="channel != null">
+				#{channel,jdbcType=VARCHAR},
+			</if>
+			<if test="MaxConnection != null">
+				#{MaxConnection,jdbcType=INTEGER}
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.flash.message.entity.app.App">
+		update tbl_app
+		<set>
+			<if test="appId != null">
+				app_id = #{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="appName != null">
+				app_name = #{appName,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="field != null">
+				field = #{field,jdbcType=VARCHAR},
+			</if>
+			<if test="callbackUrl != null">
+				callback_url = #{callbackUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="appStatus != null">
+				app_status = #{appStatus,jdbcType=INTEGER},
+			</if>
+			<if test="extendCode != null">
+				extend_code = #{extendCode,jdbcType=VARCHAR},
+			</if>
+			<if test="speedLimit != null">
+				speed_limit = #{speedLimit,jdbcType=INTEGER},
+			</if>
+			<if test="sendBeginTime != null">
+				send_begin_time = #{sendBeginTime,jdbcType=VARCHAR},
+			</if>
+			<if test="sendEndTime != null">
+				send_end_time = #{sendEndTime,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="payType != null">
+				pay_type = #{payType,jdbcType=INTEGER},
+			</if>
+			<if test="channel != null">
+				channel = #{channel,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByAppIdSelective"
+		parameterType="com.flash.message.entity.app.App">
+		update tbl_app
+		<set>
+			<if test="appId != null">
+				app_id = #{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="appName != null">
+				app_name = #{appName,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="field != null">
+				field = #{field,jdbcType=VARCHAR},
+			</if>
+			<if test="callbackUrl != null">
+				callback_url = #{callbackUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="appStatus != null">
+				app_status = #{appStatus,jdbcType=INTEGER},
+			</if>
+			<if test="extendCode != null">
+				extend_code = #{extendCode,jdbcType=VARCHAR},
+			</if>
+			<if test="speedLimit != null">
+				speed_limit = #{speedLimit,jdbcType=INTEGER},
+			</if>
+			<if test="sendBeginTime != null">
+				send_begin_time = #{sendBeginTime,jdbcType=VARCHAR},
+			</if>
+			<if test="sendEndTime != null">
+				send_end_time = #{sendEndTime,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="protocolType != null">
+				protocol_type = #{protocolType,jdbcType=INTEGER},
+			</if>
+			<if test="payType != null">
+				pay_type = #{payType,jdbcType=INTEGER},
+			</if>
+			<if test="channel != null">
+				channel = #{channel,jdbcType=VARCHAR}
+			</if>
+			<if test="MaxConnection != null">
+				max_connection = #{MaxConnection,jdbcType=INTEGER}
+			</if>
+		</set>
+		where app_id = #{appId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByAppId"
+		parameterType="com.flash.message.entity.app.App">
+		update tbl_app
+		set
+		app_name = #{appName,jdbcType=VARCHAR},
+		field =
+		#{field,jdbcType=VARCHAR},
+		callback_url =
+		#{callbackUrl,jdbcType=VARCHAR},
+		app_status =
+		#{appStatus,jdbcType=INTEGER},
+		extend_code =
+		#{extendCode,jdbcType=VARCHAR},
+		speed_limit =
+		#{speedLimit,jdbcType=INTEGER},
+		send_begin_time =
+		#{sendBeginTime,jdbcType=VARCHAR},
+		send_end_time =
+		#{sendEndTime,jdbcType=VARCHAR},
+		price = #{price,jdbcType=DECIMAL},
+		pay_type = #{payType,jdbcType=INTEGER},
+		channel =
+		#{channel,jdbcType=VARCHAR},
+		max_connection =
+		#{MaxConnection,jdbcType=VARCHAR}
+		where app_id =
+		#{appId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateStatus" parameterType="java.lang.String">
+		update tbl_login
+		set
+		app_status = #{appStatus,jdbcType=INTEGER} where app_id =
+		#{app_id,jdbcType=VARCHAR}
+	</update>
+</mapper>

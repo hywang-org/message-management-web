@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.message.mapper.RechargeRecordMapper">
+	<resultMap id="BaseResultMap"
+		type="com.flash.message.entity.app.RechargeRecord">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="app_id" jdbcType="VARCHAR" property="appId" />
+		<result column="recharge_amount" jdbcType="DECIMAL"
+			property="rechargeAmount" />
+		<result column="before_recharge" jdbcType="DECIMAL"
+			property="beforeRecharge" />
+		<result column="after_recharge" jdbcType="DECIMAL"
+			property="afterRecharge" />
+		<result column="updated_by" jdbcType="VARCHAR"
+			property="updatedBy" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, app_id, recharge_amount, before_recharge, after_recharge, updated_by,
+		created_date,
+		updated_date
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_recharge_record
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from tbl_recharge_record
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.flash.message.entity.app.RechargeRecord">
+		insert into tbl_recharge_record (id, app_id, recharge_amount,
+		before_recharge, after_recharge)
+		values (#{id,jdbcType=BIGINT}, #{appId,jdbcType=VARCHAR},
+		${rechargeAmount,jdbcType=DECIMAL},
+		${beforeRecharge,jdbcType=DECIMAL}, ${afterRecharge,jdbcType=DECIMAL},
+		#{updatedBy,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.flash.message.entity.app.RechargeRecord">
+		insert into tbl_recharge_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="appId != null">
+				app_id,
+			</if>
+			<if test="rechargeAmount != null">
+				recharge_amount,
+			</if>
+			<if test="beforeRecharge != null">
+				before_recharge,
+			</if>
+			<if test="afterRecharge != null">
+				after_recharge,
+			</if>
+			<if test="updatedBy != null">
+				updated_by,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="updatedDate != null">
+				updated_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="rechargeAmount != null">
+				#{rechargeAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="beforeRecharge != null">
+				#{beforeRecharge,jdbcType=DECIMAL},
+			</if>
+			<if test="afterRecharge != null">
+				#{afterRecharge,jdbcType=DECIMAL},
+			</if>
+			<if test="updatedBy != null">
+				#{updatedBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.flash.message.entity.app.RechargeRecord">
+		update tbl_recharge_record
+		<set>
+			<if test="appId != null">
+				app_id = #{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="rechargeAmount != null">
+				recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="beforeRecharge != null">
+				before_recharge = #{beforeRecharge,jdbcType=DECIMAL},
+			</if>
+			<if test="afterRecharge != null">
+				after_recharge = #{afterRecharge,jdbcType=DECIMAL},
+			</if>
+			<if test="updatedBy != null">
+				updated_by = #{updatedBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedDate != null">
+				updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.flash.message.entity.app.RechargeRecord">
+		update tbl_recharge_record
+		set app_id = #{appId,jdbcType=VARCHAR},
+		recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+		before_recharge = #{beforeRecharge,jdbcType=DECIMAL},
+		after_recharge = #{afterRecharge,jdbcType=DECIMAL},
+		updated_by = #{updatedBy,jdbcType=VARCHAR},
+		created_date = #{createdDate,jdbcType=TIMESTAMP},
+		updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<select id="queryAllRecord" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_recharge_record
+	</select>
+	<select id="queryRecordByAppId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_recharge_record
+		where app_id = #{appId,jdbcType=VARCHAR}
+	</select>
+</mapper>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.message.mapper.LoginMapper">
+	<resultMap id="BaseResultMap"
+		type="com.flash.message.entity.user.Login">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="user_name" jdbcType="VARCHAR"
+			property="userName" />
+		<result column="login_name" jdbcType="VARCHAR"
+			property="loginName" />
+		<result column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
+		<result column="role_id" jdbcType="INTEGER" property="roleId" />
+		<result column="user_status" jdbcType="INTEGER"
+			property="userStatus" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, user_name, login_name, user_pwd, role_id,
+		user_status,
+		mobile, email,
+		created_date, updated_date
+	</sql>
+	<select id="getLogin" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from tbl_login where
+		login_name = #{loginName,jdbcType=VARCHAR}
+	</select>
+
+	<select id="getLoginByUserId" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from tbl_login 
+		where
+		user_id = #{userId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="isExist" resultType="java.lang.Integer">
+		select count(0) from tbl_login
+		where login_name = #{loginName,jdbcType=VARCHAR}
+	</select>
+	<update id="resetPassword">
+		update tbl_login set
+		user_pwd = #{password,jdbcType=VARCHAR} where user_id =
+		#{userId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_login
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		tbl_login
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.flash.message.entity.user.Login">
+		insert into tbl_login (id, user_id, user_name,
+		login_name, user_pwd, role_id,
+		user_status, mobile, email)
+		values
+		(#{id,jdbcType=BIGINT},
+		#{userId,jdbcType=VARCHAR},
+		#{userName,jdbcType=VARCHAR},
+		#{loginName,jdbcType=VARCHAR},
+		#{userPwd,jdbcType=VARCHAR},
+		#{roleId,jdbcType=INTEGER},
+		#{userStatus,jdbcType=INTEGER},
+		#{mobile,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.flash.message.entity.user.Login">
+		insert into tbl_login
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="loginName != null">
+				login_name,
+			</if>
+			<if test="userPwd != null">
+				user_pwd,
+			</if>
+			<if test="roleId != null">
+				role_id,
+			</if>
+			<if test="userStatus != null">
+				user_status,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="loginName != null">
+				#{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPwd != null">
+				#{userPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="roleId != null">
+				#{roleId,jdbcType=INTEGER},
+			</if>
+			<if test="userStatus != null">
+				#{userStatus,jdbcType=INTEGER},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByUserId"
+		parameterType="com.flash.message.entity.user.Login">
+		update tbl_login
+		<set>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="loginName != null">
+				login_name = #{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPwd != null">
+				user_pwd = #{userPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="roleId != null">
+				role_id = #{roleId,jdbcType=INTEGER},
+			</if>
+			<if test="userStatus != null">
+				user_status = #{userStatus,jdbcType=INTEGER},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where user_id = #{userId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.flash.message.entity.user.Login">
+		update tbl_login
+		set user_id =
+		#{userId,jdbcType=VARCHAR},
+		user_name = #{userName,jdbcType=VARCHAR},
+		login_name = #{loginName,jdbcType=VARCHAR},
+		user_pwd =
+		#{userPwd,jdbcType=VARCHAR},
+		role_id = #{roleId,jdbcType=INTEGER},
+		user_status = #{userStatus,jdbcType=INTEGER},
+		mobile =
+		#{mobile,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateStatus">
+		update tbl_login
+		set
+		user_status = #{status,jdbcType=INTEGER} where id =
+		#{user_id,jdbcType=VARCHAR}
+	</update>
+</mapper>

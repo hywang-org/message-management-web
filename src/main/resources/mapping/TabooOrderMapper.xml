@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.message.mapper.TabooOrderMapper">
+	<resultMap id="BaseResultMap"
+		type="com.flash.message.entity.order.TabooOrder">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="own_msg_id" jdbcType="VARCHAR"
+			property="ownMsgId" />
+		<result column="client_seq_id" jdbcType="VARCHAR"
+			property="clientSeqId" />
+		<result column="own_seq_id" jdbcType="VARCHAR"
+			property="ownSeqId" />
+		<result column="channel_id" jdbcType="VARCHAR"
+			property="channelId" />
+		<result column="server_id" jdbcType="VARCHAR"
+			property="serverId" />
+		<result column="protocol" jdbcType="VARCHAR"
+			property="protocol" />
+		<result column="des_id" jdbcType="VARCHAR" property="desId" />
+		<result column="link_id" jdbcType="VARCHAR" property="linkId" />
+		<result column="app_id" jdbcType="VARCHAR" property="appId" />
+		<result column="share_date" jdbcType="TIMESTAMP"
+			property="shareDate" />
+		<result column="created_date" jdbcType="TIMESTAMP"
+			property="createdDate" />
+		<result column="updated_date" jdbcType="TIMESTAMP"
+			property="updatedDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, own_msg_id, client_seq_id, own_seq_id, channel_id,
+		server_id,
+		protocol, des_id,
+		link_id, app_id, share_date, created_date,
+		updated_date
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_taboo_order
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		tbl_taboo_order
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.flash.message.entity.order.TabooOrder">
+		insert into tbl_taboo_order (id, own_msg_id,
+		client_seq_id,
+		own_seq_id, channel_id, server_id,
+		protocol, des_id,
+		link_id,
+		app_id, share_date, created_date,
+		updated_date)
+		values
+		(#{id,jdbcType=BIGINT}, #{ownMsgId,jdbcType=VARCHAR},
+		#{clientSeqId,jdbcType=VARCHAR},
+		#{ownSeqId,jdbcType=VARCHAR},
+		#{channelId,jdbcType=VARCHAR}, #{serverId,jdbcType=VARCHAR},
+		#{protocol,jdbcType=VARCHAR}, #{desId,jdbcType=VARCHAR},
+		#{linkId,jdbcType=VARCHAR},
+		#{appId,jdbcType=VARCHAR},
+		#{shareDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP},
+		#{updatedDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.flash.message.entity.order.TabooOrder">
+		insert into tbl_taboo_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="ownMsgId != null">
+				own_msg_id,
+			</if>
+			<if test="clientSeqId != null">
+				client_seq_id,
+			</if>
+			<if test="ownSeqId != null">
+				own_seq_id,
+			</if>
+			<if test="channelId != null">
+				channel_id,
+			</if>
+			<if test="serverId != null">
+				server_id,
+			</if>
+			<if test="protocol != null">
+				protocol,
+			</if>
+			<if test="desId != null">
+				des_id,
+			</if>
+			<if test="linkId != null">
+				link_id,
+			</if>
+			<if test="appId != null">
+				app_id,
+			</if>
+			<if test="shareDate != null">
+				share_date,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="updatedDate != null">
+				updated_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="ownMsgId != null">
+				#{ownMsgId,jdbcType=VARCHAR},
+			</if>
+			<if test="clientSeqId != null">
+				#{clientSeqId,jdbcType=VARCHAR},
+			</if>
+			<if test="ownSeqId != null">
+				#{ownSeqId,jdbcType=VARCHAR},
+			</if>
+			<if test="channelId != null">
+				#{channelId,jdbcType=VARCHAR},
+			</if>
+			<if test="serverId != null">
+				#{serverId,jdbcType=VARCHAR},
+			</if>
+			<if test="protocol != null">
+				#{protocol,jdbcType=VARCHAR},
+			</if>
+			<if test="desId != null">
+				#{desId,jdbcType=VARCHAR},
+			</if>
+			<if test="linkId != null">
+				#{linkId,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="shareDate != null">
+				#{shareDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.flash.message.entity.order.TabooOrder">
+		update tbl_taboo_order
+		<set>
+			<if test="ownMsgId != null">
+				own_msg_id = #{ownMsgId,jdbcType=VARCHAR},
+			</if>
+			<if test="clientSeqId != null">
+				client_seq_id = #{clientSeqId,jdbcType=VARCHAR},
+			</if>
+			<if test="ownSeqId != null">
+				own_seq_id = #{ownSeqId,jdbcType=VARCHAR},
+			</if>
+			<if test="channelId != null">
+				channel_id = #{channelId,jdbcType=VARCHAR},
+			</if>
+			<if test="serverId != null">
+				server_id = #{serverId,jdbcType=VARCHAR},
+			</if>
+			<if test="protocol != null">
+				protocol = #{protocol,jdbcType=VARCHAR},
+			</if>
+			<if test="desId != null">
+				des_id = #{desId,jdbcType=VARCHAR},
+			</if>
+			<if test="linkId != null">
+				link_id = #{linkId,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				app_id = #{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="shareDate != null">
+				share_date = #{shareDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedDate != null">
+				updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.flash.message.entity.order.TabooOrder">
+		update tbl_taboo_order
+		set own_msg_id =
+		#{ownMsgId,jdbcType=VARCHAR},
+		client_seq_id =
+		#{clientSeqId,jdbcType=VARCHAR},
+		own_seq_id =
+		#{ownSeqId,jdbcType=VARCHAR},
+		channel_id =
+		#{channelId,jdbcType=VARCHAR},
+		server_id =
+		#{serverId,jdbcType=VARCHAR},
+		protocol = #{protocol,jdbcType=VARCHAR},
+		des_id = #{desId,jdbcType=VARCHAR},
+		link_id =
+		#{linkId,jdbcType=VARCHAR},
+		app_id = #{appId,jdbcType=VARCHAR},
+		share_date = #{shareDate,jdbcType=TIMESTAMP},
+		created_date =
+		#{createdDate,jdbcType=TIMESTAMP},
+		updated_date =
+		#{updatedDate,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<select id="selectAllGBAppId" parameterType="java.util.Date"
+		resultType="com.flash.message.entity.usage.Usage">
+		select
+		app_id as appId,count(*) as failCount
+		from
+		tbl_taboo_order
+		where share_date = #{shareDate,jdbcType=TIMESTAMP}
+		group
+		by app_id
+	</select>
+
+	<select id="selectByAppId"
+		resultType="com.flash.message.entity.usage.Usage">
+		select
+		app_id as appId,count(*) as failCount
+		from
+		tbl_taboo_order
+		where share_date = #{shareDate,jdbcType=TIMESTAMP}
+		and
+		app_id = #{appId,jdbcType=VARCHAR}
+	</select>
+
+</mapper>

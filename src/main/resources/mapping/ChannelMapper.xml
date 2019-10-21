@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.message.mapper.ChannelMapper">
+	<resultMap id="BaseResultMap"
+		type="com.flash.message.entity.channel.Channel">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="sp_id" jdbcType="VARCHAR" property="spId" />
+		<result column="sp_name" jdbcType="VARCHAR" property="spName" />
+		<result column="sp_type" jdbcType="INTEGER" property="spType" />
+		<result column="sp_status" jdbcType="INTEGER"
+			property="spStatus" />
+		<result column="sp_connect_status" jdbcType="INTEGER"
+			property="spConnectStatus" />
+		<result column="sp_ip" jdbcType="VARCHAR" property="spIp" />
+		<result column="sp_port" jdbcType="INTEGER" property="spPort" />
+		<result column="speed_limit" jdbcType="INTEGER"
+			property="speedLimit" />
+		<result column="sp_login_name" jdbcType="VARCHAR"
+			property="spLoginName" />
+		<result column="sp_login_pwd" jdbcType="VARCHAR"
+			property="spLoginPwd" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, sp_id, sp_name, sp_type, sp_status, sp_connect_status,
+		sp_ip,
+		sp_port, speed_limit,
+		sp_login_name, sp_login_pwd, created_date,
+		updated_date
+	</sql>
+	<select id="queryChannelBySpId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_channel
+		where sp_id = #{spId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="queryChannelBySpType" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_channel where sp_type in
+		<foreach collection="spType" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		tbl_channel
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert1"
+		parameterType="com.flash.message.entity.channel.Channel">
+		insert into tbl_channel (id, sp_id, sp_name,
+		sp_type,
+		sp_status, sp_connect_status,
+		sp_ip, sp_port, speed_limit,
+		sp_login_name, sp_login_pwd, created_date)
+		values
+		(#{id,jdbcType=BIGINT}, #{spId,jdbcType=VARCHAR},
+		#{spName,jdbcType=VARCHAR},
+		#{spType,jdbcType=INTEGER},
+		#{spStatus,jdbcType=INTEGER}, #{spConnectStatus,jdbcType=INTEGER},
+		#{spIp,jdbcType=VARCHAR}, #{spPort,jdbcType=INTEGER},
+		#{speedLimit,jdbcType=INTEGER},
+		#{spLoginName,jdbcType=VARCHAR},
+		#{spLoginPwd,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insert"
+		parameterType="com.flash.message.entity.channel.Channel">
+		insert into tbl_channel
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="spId != null">
+				sp_id,
+			</if>
+			<if test="spName != null">
+				sp_name,
+			</if>
+			<if test="spType != null">
+				sp_type,
+			</if>
+			<if test="spStatus != null">
+				sp_status,
+			</if>
+			<if test="spConnectStatus != null">
+				sp_connect_status,
+			</if>
+			<if test="spIp != null">
+				sp_ip,
+			</if>
+			<if test="spPort != null">
+				sp_port,
+			</if>
+			<if test="speedLimit != null">
+				speed_limit,
+			</if>
+			<if test="spLoginName != null">
+				sp_login_name,
+			</if>
+			<if test="spLoginPwd != null">
+				sp_login_pwd,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="spId != null">
+				#{spId,jdbcType=VARCHAR},
+			</if>
+			<if test="spName != null">
+				#{spName,jdbcType=VARCHAR},
+			</if>
+			<if test="spType != null">
+				#{spType,jdbcType=INTEGER},
+			</if>
+			<if test="spStatus != null">
+				#{spStatus,jdbcType=INTEGER},
+			</if>
+			<if test="spConnectStatus != null">
+				#{spConnectStatus,jdbcType=INTEGER},
+			</if>
+			<if test="spIp != null">
+				#{spIp,jdbcType=VARCHAR},
+			</if>
+			<if test="spPort != null">
+				#{spPort,jdbcType=INTEGER},
+			</if>
+			<if test="speedLimit != null">
+				#{speedLimit,jdbcType=INTEGER},
+			</if>
+			<if test="spLoginName != null">
+				#{spLoginName,jdbcType=VARCHAR},
+			</if>
+			<if test="spLoginPwd != null">
+				#{spLoginPwd,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateBySpId"
+		parameterType="com.flash.message.entity.channel.Channel">
+		update tbl_channel
+		<set>
+			<if test="spName != null">
+				sp_name = #{spName,jdbcType=VARCHAR},
+			</if>
+			<if test="spType != null">
+				sp_type = #{spType,jdbcType=INTEGER},
+			</if>
+			<if test="spStatus != null">
+				sp_status = #{spStatus,jdbcType=INTEGER},
+			</if>
+			<if test="spConnectStatus != null">
+				sp_connect_status = #{spConnectStatus,jdbcType=INTEGER},
+			</if>
+			<if test="spIp != null">
+				sp_ip = #{spIp,jdbcType=VARCHAR},
+			</if>
+			<if test="spPort != null">
+				sp_port = #{spPort,jdbcType=INTEGER},
+			</if>
+			<if test="speedLimit != null">
+				speed_limit = #{speedLimit,jdbcType=INTEGER},
+			</if>
+			<if test="spLoginName != null">
+				sp_login_name = #{spLoginName,jdbcType=VARCHAR},
+			</if>
+			<if test="spLoginPwd != null">
+				sp_login_pwd = #{spLoginPwd,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where sp_id = #{spId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.flash.message.entity.channel.Channel">
+		update tbl_channel
+		set sp_id = #{spId,jdbcType=VARCHAR},
+		sp_name = #{spName,jdbcType=VARCHAR},
+		sp_type =
+		#{spType,jdbcType=INTEGER},
+		sp_status = #{spStatus,jdbcType=INTEGER},
+		sp_connect_status = #{spConnectStatus,jdbcType=INTEGER},
+		sp_ip =
+		#{spIp,jdbcType=VARCHAR},
+		sp_port = #{spPort,jdbcType=INTEGER},
+		speed_limit = #{speedLimit,jdbcType=INTEGER},
+		sp_login_name =
+		#{spLoginName,jdbcType=VARCHAR},
+		sp_login_pwd =
+		#{spLoginPwd,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<select id="getAllChannel" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_channel
+	</select>
+</mapper>

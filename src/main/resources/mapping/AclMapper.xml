@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.message.mapper.AclMapper">
+	<resultMap id="BaseResultMap"
+		type="com.flash.message.entity.menu.Acl">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="acl_name" jdbcType="VARCHAR" property="aclName" />
+		<result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
+		<result column="acl_status" jdbcType="INTEGER"
+			property="aclStatus" />
+		<result column="acl_type" jdbcType="INTEGER" property="aclType" />
+		<result column="acl_seq" jdbcType="INTEGER" property="aclSeq" />
+		<result column="parent_id" jdbcType="BIGINT"
+			property="parentId" />
+		<result column="created_date" jdbcType="TIMESTAMP"
+			property="createdDate" />
+		<result column="updated_date" jdbcType="TIMESTAMP"
+			property="updatedDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, acl_name, menu_url, acl_status, acl_seq, parent_id,
+		created_date,
+		updated_date
+	</sql>
+	<select id="queryAllAcl" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_acl
+	</select>
+	<select id="selectAclById" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_acl
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		tbl_acl
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insertSelective"
+		parameterType="com.flash.message.entity.menu.Acl">
+		insert into tbl_acl
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="aclName != null">
+				acl_name,
+			</if>
+			<if test="menuUrl != null">
+				menu_url,
+			</if>
+			<if test="aclType != null">
+				acl_type,
+			</if>
+			<if test="aclStatus != null">
+				acl_status,
+			</if>
+			<if test="aclSeq != null">
+				acl_seq,
+			</if>
+			<if test="parentId != null">
+				parent_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="aclName != null">
+				#{aclName,jdbcType=VARCHAR},
+			</if>
+			<if test="menuUrl != null">
+				#{menuUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="aclType != null">
+				#{aclType,jdbcType=INTEGER},
+			</if>
+			<if test="aclStatus != null">
+				#{aclStatus,jdbcType=INTEGER},
+			</if>
+			<if test="aclSeq != null">
+				#{aclSeq,jdbcType=INTEGER},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.flash.message.entity.menu.Acl">
+		update tbl_acl
+		<set>
+			<if test="aclName != null">
+				acl_name = #{aclName,jdbcType=VARCHAR},
+			</if>
+			<if test="menuUrl != null">
+				menu_url = #{menuUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="aclStatus != null">
+				acl_status = #{aclStatus,jdbcType=INTEGER},
+			</if>
+			<if test="aclSeq != null">
+				acl_seq = #{aclSeq,jdbcType=INTEGER},
+			</if>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=BIGINT}
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.flash.message.entity.menu.Acl">
+		update tbl_acl
+		set acl_name =
+		#{aclName,jdbcType=VARCHAR},
+		menu_url = #{menuUrl,jdbcType=VARCHAR},
+		acl_status = #{aclStatus,jdbcType=INTEGER},
+		acl_seq =
+		#{aclSeq,jdbcType=INTEGER},
+		parent_id = #{parentId,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

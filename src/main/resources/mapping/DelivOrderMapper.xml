@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.message.mapper.DelivOrderMapper">
+	<resultMap id="BaseResultMap"
+		type="com.flash.message.entity.order.DelivOrder">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="own_msg_id" jdbcType="VARCHAR"
+			property="ownMsgId" />
+		<result column="sp_msg_id" jdbcType="VARCHAR"
+			property="spMsgId" />
+		<result column="app_id" jdbcType="VARCHAR" property="appId" />
+		<result column="msg_state" jdbcType="VARCHAR"
+			property="msgState" />
+		<result column="share_date" jdbcType="TIMESTAMP"
+			property="shareDate" />
+		<result column="created_date" jdbcType="TIMESTAMP"
+			property="createdDate" />
+		<result column="updated_date" jdbcType="TIMESTAMP"
+			property="updatedDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, own_msg_id, sp_msg_id, app_id, msg_state, share_date,
+		created_date,
+		updated_date
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_deliv_order
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		tbl_deliv_order
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.flash.message.entity.order.DelivOrder">
+		insert into tbl_deliv_order (id, own_msg_id, sp_msg_id,
+		app_id, msg_state, share_date,
+		created_date, updated_date)
+		values
+		(#{id,jdbcType=BIGINT}, #{ownMsgId,jdbcType=VARCHAR},
+		#{spMsgId,jdbcType=VARCHAR},
+		#{appId,jdbcType=VARCHAR},
+		#{msgState,jdbcType=VARCHAR}, #{shareDate,jdbcType=TIMESTAMP},
+		#{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.flash.message.entity.order.DelivOrder">
+		insert into tbl_deliv_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="ownMsgId != null">
+				own_msg_id,
+			</if>
+			<if test="spMsgId != null">
+				sp_msg_id,
+			</if>
+			<if test="appId != null">
+				app_id,
+			</if>
+			<if test="msgState != null">
+				msg_state,
+			</if>
+			<if test="shareDate != null">
+				share_date,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="updatedDate != null">
+				updated_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="ownMsgId != null">
+				#{ownMsgId,jdbcType=VARCHAR},
+			</if>
+			<if test="spMsgId != null">
+				#{spMsgId,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="msgState != null">
+				#{msgState,jdbcType=VARCHAR},
+			</if>
+			<if test="shareDate != null">
+				#{shareDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.flash.message.entity.order.DelivOrder">
+		update tbl_deliv_order
+		<set>
+			<if test="ownMsgId != null">
+				own_msg_id = #{ownMsgId,jdbcType=VARCHAR},
+			</if>
+			<if test="spMsgId != null">
+				sp_msg_id = #{spMsgId,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				app_id = #{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="msgState != null">
+				msg_state = #{msgState,jdbcType=VARCHAR},
+			</if>
+			<if test="shareDate != null">
+				share_date = #{shareDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedDate != null">
+				updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.flash.message.entity.order.DelivOrder">
+		update tbl_deliv_order
+		set own_msg_id =
+		#{ownMsgId,jdbcType=VARCHAR},
+		sp_msg_id = #{spMsgId,jdbcType=VARCHAR},
+		app_id = #{appId,jdbcType=VARCHAR},
+		msg_state =
+		#{msgState,jdbcType=VARCHAR},
+		share_date =
+		#{shareDate,jdbcType=TIMESTAMP},
+		created_date =
+		#{createdDate,jdbcType=TIMESTAMP},
+		updated_date =
+		#{updatedDate,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<select id="selectAllGBAppId"
+		resultType="com.flash.message.entity.usage.Usage">
+		select
+		app_id as appId,count(*) as successCount
+		from
+		tbl_deliv_order
+		where share_date = #{shareDate,jdbcType=TIMESTAMP}
+		group by app_id
+	</select>
+
+	<select id="selectByAppId"
+		resultType="com.flash.message.entity.usage.Usage">
+		select
+		app_id as appId,count(*) as successCount
+		from
+		tbl_deliv_order
+		where share_date = #{shareDate,jdbcType=TIMESTAMP}
+		and
+		app_id = #{appId,jdbcType=VARCHAR}
+	</select>
+
+
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flash.message.mapper.RechargeMapper">
+	<resultMap id="BaseResultMap"
+		type="com.flash.message.entity.app.Recharge">
+		<result column="app_id" jdbcType="VARCHAR" property="appId" />
+		<result column="total_money" jdbcType="DECIMAL"
+			property="totalMoney" />
+		<result column="used_money" jdbcType="DECIMAL"
+			property="usedMoney" />
+		<result column="total_num" jdbcType="DECIMAL"
+			property="totalNum" />
+		<result column="used_Num" jdbcType="DECIMAL" property="usedNum" />
+	</resultMap>
+	<insert id="insertSelective"
+		parameterType="com.flash.message.entity.app.Recharge">
+		insert into tbl_consumption
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="appId != null">
+				app_id,
+			</if>
+			<if test="totalMoney != null">
+				total_money,
+			</if>
+			<if test="usedMoney != null">
+				used_money,
+			</if>
+			<if test="totalNum != null">
+				total_num,
+			</if>
+			<if test="usedNum != null">
+				used_num,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="appId != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="totalMoney != null">
+				#{totalMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="usedMoney != null">
+				#{usedMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="totalNum != null">
+				#{totalNum,jdbcType=BIGINT},
+			</if>
+			<if test="usedNum != null">
+				#{usedNum,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.flash.message.entity.app.Recharge">
+		update tbl_consumption
+		<set>
+			<if test="appId != null">
+				app_id = #{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="totalMoney != null">
+				total_money = #{totalMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="usedMoney != null">
+				used_money = #{usedMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="totalNum != null">
+				total_num = #{totalNum,jdbcType=BIGINT},
+			</if>
+			<if test="usedNum != null">
+				used_num = #{usedNum,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.flash.message.entity.app.Recharge">
+		update tbl_consumption
+		set app_id = #{appId,jdbcType=VARCHAR},
+		total_money = #{totalMoney,jdbcType=DECIMAL},
+		used_money = #{usedMoney,jdbcType=DECIMAL},
+		total_num = #{totalNum,jdbcType=BIGINT},
+		used_num = #{usedNum,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="update">
+		update tbl_consumption set
+		total_money =
+		#{totalMoney,jdbcType=DECIMAL},total_num =
+		#{totalNum,jdbcType=DECIMAL}
+		where app_id =
+		#{appId,jdbcType=VARCHAR}
+	</update>
+	<select id="queryById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select * from tbl_consumption where app_id =
+		#{appId,jdbcType=VARCHAR}
+	</select>
+</mapper>
