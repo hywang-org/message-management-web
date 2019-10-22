@@ -296,10 +296,10 @@
 		where app_id =
 		#{appId,jdbcType=VARCHAR}
 	</update>
-	<update id="updateStatus" parameterType="java.lang.String">
-		update tbl_login
+	<update id="updateStatus">
+		update tbl_app
 		set
 		app_status = #{appStatus,jdbcType=INTEGER} where app_id =
-		#{app_id,jdbcType=VARCHAR}
+		#{appId,jdbcType=VARCHAR}
 	</update>
 </mapper>

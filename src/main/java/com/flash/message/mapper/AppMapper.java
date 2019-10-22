@@ -11,20 +11,20 @@ import com.flash.message.entity.app.App;
 public interface AppMapper {
 
 	List<App> queryApp();
-	
-	List<App> queryAppByChannelId(@Param("channel")String channel);
+
+	List<App> queryAppByChannelId(@Param("channel") String channel);
 
 	int insertSelective(App record);
-	
+
 	int isEx(String appName);
 
-	App queryAppByAppId(@Param("appId")String appId);
+	App queryAppByAppId(@Param("appId") String appId);
 
 	int updateByPrimaryKeySelective(App record);
 
 	int updateByAppId(App app);
-	
+
 	int updateByAppIdSelective(App app);
-	
-	int updateStatus(String appId,String appStatus);
+
+	void updateStatus(@Param("appId") String appId, @Param("appStatus") String appStatus);
 }

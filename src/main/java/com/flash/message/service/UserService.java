@@ -58,7 +58,7 @@ public class UserService {
 			userInfo.setLoginName(login.getLoginName());
 			Role role = roleMapper.selectByPrimaryKey(Long.valueOf(login.getRoleId()+""));
 			userInfo.setRoleId(login.getRoleId());
-			userInfo.setUserName(role.getRoleName());
+			userInfo.setRoleName(role.getRoleName());
 		}
 		json.getJSONObject("data").put("users", JSON.toJSON(userList));
 		return json;

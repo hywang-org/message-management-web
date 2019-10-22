@@ -184,7 +184,7 @@
 	<update id="updateStatus">
 		update tbl_login
 		set
-		user_status = #{status,jdbcType=INTEGER} where id =
+		user_status = #{status,jdbcType=INTEGER} where user_id =
 		#{user_id,jdbcType=VARCHAR}
 	</update>
 </mapper>
